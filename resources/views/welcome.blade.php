@@ -97,7 +97,6 @@
     <script type="text/javascript">
 
         let products =@json($products);
-        $('#submit').attr('disabled', true);
 
         $("#input-product1").on('change', function(){
             let value=this.value;

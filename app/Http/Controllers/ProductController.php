@@ -27,7 +27,7 @@ class ProductController extends Controller
         $data=$request->validated();
         $rate = $this->calcRate($data['suggestion_date']);
 
-        $all_suggested_products=DB::select("SELECT order_products.product_id,products.name as name,products.price as price,(products.price*".$rate.") as price_in_eur, COUNT(order_products.order_id) AS number_of_orders
+        $all_suggested_products=DB::select("SELECT order_products.product_id,products.name as name,products.price as price,(products.price/".$rate.") as price_in_eur, COUNT(order_products.order_id) AS number_of_orders
                                                 FROM order_products
                                                     INNER JOIN products ON products.id = order_products.product_id
                                                 WHERE order_id IN (select id from `orders` where exists (select * from `order_products` where `orders`.`id` = `order_products`.`order_id` and `product_id` = ".$data['product1'].")
